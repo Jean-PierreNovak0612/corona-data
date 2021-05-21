@@ -10,8 +10,8 @@
                     <a class="nav-item nav-link fw-bold fs-5" href="#">Home</a>
                     <a class="nav-item nav-link fw-bold fs-5" href="#">Status</a>
                 </div>
-                <form class="form-inline my-2 my-lg-0 d-lg-flex">
-                    <input type="search" class="form-control me-sm-2" placeholder="Croatia">
+                <form class="form-inline form-group my-2 my-lg-0 d-lg-flex">
+                    <input type="search" id="search" class="form-control me-sm-2" placeholder="Enter country name">
                     <button class="btn btn-outline-dark my-3 my-lg-0">Submit</button>
                 </form>
             </div>
