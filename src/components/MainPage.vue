@@ -1,11 +1,17 @@
 <template>
     <main class="pt-5">
+        <Footer class="fixed-bottom border border-3 border-dark" />
     </main>
 </template>
 
 <script>
+import Footer from './Footer'
+
 export default {
-    name: "MainPage"
+    name: "MainPage",
+    components: {
+        Footer
+    }
 }
 </script>
 
