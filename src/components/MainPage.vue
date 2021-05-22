@@ -1,26 +1,35 @@
 <template>
     <main class="pt-5">
-        <h2 v-if="show" class="pb-5 mb-5">Check out what corona does to our world</h2>
-        <router-link @click="fadeOut" class="btn btn-outline-danger border border-3 border-danger rounded py-3 px-4 fw-bold fs-6" to="/status">Check it out!</router-link>
+        <transition name="slide-fade-top">
+            <h2 v-if="show" class="pb-5 mb-5">Check out what corona does to our world</h2>
+        </transition>
+        <button @click="fadeOut" class="btn btn-outline-danger border border-3 border-danger rounded py-3 px-4 fw-bold fs-6" to="/status">Check it out!</button>
         <Footer class="fixed-bottom border border-3 border-dark" />
     </main>
 </template>
 
 <script>
 import Footer from './Footer'
+import { router } from '../main'
 
 export default {
     name: "MainPage",
     data() {
         return {
-            show: false,
+            show: true,
         }
     },
     components: {
         Footer
     },
-    mounted() {
-        this.show = true;
+    methods: {
+        fadeOut() {
+            this.show = false;
+            setTimeout(() =>{
+                router.push('/status')
+                this.show = true;
+            }, 500)
+        }
     }
 }
 </script>
@@ -57,29 +66,37 @@ export default {
     h2 {
         position: relative;
         text-align: center;
-        font-size: 5vmax;
-        max-width: 30ch;
+        font-size: 4vmax;
+        max-width: 20ch;
     }
 
     /* Links and buttons */
-    a{
+    button{
         position: relative;
     }
 
     /* Transitions */
-    .slide-fade-top-enter-active,
+    .slide-fade-top-enter-active {
+        transition: all .3s ease;
+        }
     .slide-fade-top-leave-active {
-        transition: all .5s ease;
+        transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
     }
-    .slide-fade-top-enter,
-    .slide-fade-top-leave {
-        transform: translateY(20px);
+    .slide-fade-top-enter, .slide-fade-top-leave-to
+    /* .slide-fade-leave-active below version 2.1.8 */ {
+        transform: translateY(-100px);
         opacity: 0;
     }
     @media (max-width: 992px){
+        main {
+            justify-content: flex-start;
+        }
         main::before{
             background-size: 100% 70%;
             background-position: 50% 170%
+        }
+        h2{
+            margin-top: 100px
         }
     }
 </style>
