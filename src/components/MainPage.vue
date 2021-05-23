@@ -27,6 +27,7 @@ export default {
             this.show = false;
             setTimeout(() =>{
                 router.push('/status')
+                this.$emit('checkLink', null)
                 this.show = true;
             }, 500)
         }
@@ -97,6 +98,10 @@ export default {
         }
         h2{
             margin-top: 100px
+        }
+        button {
+            background-color: #dc3545;
+            color: #fff;
         }
     }
 </style>

@@ -4,6 +4,7 @@ import { createWebHashHistory, createRouter } from 'vue-router'
 import App from './App';
 import MainPage from './components/MainPage'
 import DataList from './components/DataList'
+import store from './store'
 
 const routes = [
     {
@@ -23,4 +24,4 @@ export const router = createRouter({
 
 
 
-createApp(App).use(router).mount('#app')
+createApp(App).use(store).use(router).mount('#app')
