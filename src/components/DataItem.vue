@@ -37,7 +37,7 @@ export default {
             if(day < 10) day = '0' + month;
 
             return `${day}.${month}.${year}`
-        }
+        }, 
     }
 }
 </script>
