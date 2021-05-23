@@ -4,6 +4,7 @@ import { createWebHashHistory, createRouter } from 'vue-router'
 import App from './App';
 import MainPage from './components/MainPage'
 import DataList from './components/DataList'
+import CountryStatus from './components/CountryStatus'
 import store from './store'
 
 const routes = [
@@ -14,6 +15,10 @@ const routes = [
     {
         path: '/status',
         component: DataList
+    },
+    {
+        path: '/status/country', 
+        component: CountryStatus
     }
 ]
 

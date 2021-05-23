@@ -3,7 +3,8 @@
         <DataItem class="alone mx-auto" :title="globalTitle" :info="allSummaryData.Global"></DataItem>
         <div class="search mx-auto" @input="onInput">
             <label class="form-label mt-3">Search for a Country</label>
-            <input type="text" class="form-control mt-1" />
+            <input type="text" class="form-control mt-1" placeholder="Croatia" />
+            <p class="form-text">Select a card to see the daily details</p>
         </div>
         <div class="text-center">
             <DataItem  @click="onClick(country.Country)" class="mx-auto mx-md-2 d-md-inline-block multiple" v-for="country in filteredCountries" :key="country.Id" :info="country" />
@@ -16,6 +17,7 @@
 import { mapActions, mapGetters } from 'vuex'
 
 import DataItem from './DataItem'
+import { router } from '../main'
 
 export default {
     name: 'DataList',
@@ -42,9 +44,11 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['fetchSummaryData']),
+        ...mapActions(['fetchSummaryData', 'fetchCountryStatus']),
         onClick(country) {
-            console.log(country.toLowerCase())
+            country = country.replace(/\s+/g, '-').toLowerCase();
+            this.fetchCountryStatus(country);
+            router.push('/status/country')
         },
         onInput(e) {
             this.searchTerm = e.target.value.toLowerCase();
@@ -59,7 +63,7 @@ export default {
         this.fetchSummaryData()
         setTimeout(() => {
             this.counties = this.allSummaryData.Countries;
-        }, 100)
+        }, 100);
     }
 }
 </script>
@@ -75,7 +79,7 @@ export default {
         transition: all .2s ease
     }
     .multiple:hover {
-        background-color: #eee;
+        background-color: rgb(248, 248, 248);
         transform: scale(1.03)
     }
 
