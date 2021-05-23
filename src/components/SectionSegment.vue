@@ -30,4 +30,7 @@ export default {
         max-width: 750px;
         width: 85%;
     }
+    ul{
+        list-style-image: url('../assets/images/corona_bullets.png')
+    }
 </style>
