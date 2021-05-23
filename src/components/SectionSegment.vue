@@ -1,9 +1,8 @@
 <template>
-    <div>
-        <div class="py-5 px-4 mt-3 mx-auto section border border-2 rounded border-dark">
-            <h2 class="pb-3">{{title}} {{ country && country }}</h2>
+    <div class="section mt-3 border border-2 rounded border-dark mx-auto">
+        <div class="py-5 px-4">
+            <h5 class="pb-3" v-if="province">Province: {{province && province}}</h5>
             <div>
-                <p class="fs-5">{{text}}</p>
                 <ul>
                     <li class="fs-5 fw-bold">{{dataType}} {{info && info}}</li>
                 </ul>
@@ -16,7 +15,7 @@
 <script>
 export default {
     name: 'SectionSegment',
-    props: ['title', 'info', 'country', 'text', 'dataType', 'date'],
+    props: [ 'info', 'dataType', 'date', 'province'],
     methods: {
         getDate() {
             const currdate = new Date(this.date)
@@ -29,6 +28,6 @@ export default {
 <style scoped>
     .section {
         max-width: 750px;
-        width: 90%;
+        width: 85%;
     }
 </style>

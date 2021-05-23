@@ -17,7 +17,7 @@
                 :locale="datepickerSetting.locale"
                 @value-changed="datepickerSetting.changeEvent"
                 :disableInput="datepickerSetting.disableInput"
-                class=" py-3 px-5 mx-5 bg-light fs-5"
+                class=" py-3 px-5 bg-light fs-5"
             />
         </div>
        <div class="navigation pt-3">
@@ -33,17 +33,29 @@
                 </li>
             </ul>
        </div>
-       <div v-if="cured">
-           <SectionSegment v-for="selected in filterSelected" :dataType="dataType1" :date="selectedDate" :key="selected.Id" :text="text2" :title="title2" :country="selected.Country" :info="selected.Confirmed" />
-          <p v-if="!(filterSelected).length" class="alert alert-danger mt-5 text-center">No data recorded!</p>
-       </div>
        <div v-if="infected">
-           <SectionSegment v-for="selected in filterSelected" :dataType="dataType2" :date="selectedDate" :key="selected.Id" :text="text1" :title="title2" :country="selected.Country" :info="selected.Recovered" />
-          <p v-if="!(filterSelected).length" class="alert alert-danger mt-5 text-center">No data recorded!</p>
+            <div class="my-1 px-3 py-1 mx-auto text">
+                <h2 class="pb-2">Number of infected in {{ getCountryStatus && getCountryStatus[0].Country}}</h2>
+                <p class="fs-5">The corona pandemic has taken us all by surprise. To keep the spread of the virus in check, we were all quarantined. However, that did't keep the virus from getting to us, as the numbers show:</p>
+            </div>
+            <SectionSegment :province="selected.Province" v-for="selected in filterSelected" :dataType="dataType1" :date="selectedDate" :key="selected.Id" :info="selected.Confirmed" />
+            <p v-if="!(filterSelected).length" class="alert alert-danger mt-5 fs-5 fw-bold text-center">No data recorded!</p>
+       </div>
+       <div v-if="cured">
+            <div class="my-1 px-3 py-1 mx-auto text">
+               <h2 class="pb-2">Number of cured in {{ getCountryStatus && getCountryStatus[0].Country}}</h2>
+                <p class="fs-5">But not everything is dark, as they say. There is a bit of hope since there are many people who had been infected but recovered:</p>
+            </div>
+            <SectionSegment :province="selected.Province" v-for="selected in filterSelected" :dataType="dataType2" :date="selectedDate" :key="selected.Id" :country="selected.Country" :info="selected.Recovered" />
+            <p v-if="!(filterSelected).length" class="alert alert-danger mt-5 fs-5 fw-bold text-center">No data recorded!</p>
        </div>
        <div v-if="dead">
-          <SectionSegment v-for="selected in filterSelected" :dataType="dataType3" :date="selectedDate" :key="selected.Id" :text="text3" :title="title3" :country="selected.Country" :info="selected.Deaths" />
-          <p v-if="!(filterSelected).length" class="alert alert-danger mt-5 text-center">No data recorded!</p>
+            <div class="my-1 px-3 py-1 mx-auto text">
+                <h2 class="pb-2">Number of deaths in {{ getCountryStatus && getCountryStatus[0].Country}}</h2>
+                <p class="fs-5">As there is good news, there are bad ones as well. The corona pandemic has taken many lives, which is visible here:</p>
+            </div>
+            <SectionSegment :province="selected.Province" v-for="selected in filterSelected" :dataType="dataType3" :date="selectedDate" :key="selected.Id" :info="selected.Deaths" />
+            <p v-if="!(filterSelected).length" class="alert alert-danger mt-5 fs-5 fw-bold text-center">No data recorded!</p>
        </div>
     </div>
 </template>
@@ -65,15 +77,10 @@ export default {
             cured: false,
             infected: true,
             dead: false,
-            title1: 'Recovered in',
-            title2: 'Infected in',
-            title3: 'How many have died in',
             dataType1: "Total Confirmed:",
             dataType2: "Total Recovered:",
             dataType3: "Total Deaths:",
-            text1: 'The corona pandemic has taken us all by suprise. In order to keep the spread of the virus in check, we were all quarantined. However, that did\'t keep the virus from getting to us, as the numbers show:',
-            text2: 'But not everything is dark as they say. There is a bit of hope, since there are many people who had been infected, but recovered:',
-            text3: 'As there are good news, there are bad ones as well. The corona pandemic has taken many lives which is visible here:',
+            text1: 'The corona pandemic has taken us all by surprise. To keep the spread of the virus in check, we were all quarantined. However, that did\'t keep the virus from getting to us, as the numbers show:',
             selectedDate: '',
             datepickerSetting: {
                 id: "birthday",
@@ -132,9 +139,16 @@ export default {
                 })
             }, 50)
         },
-        getData() {
-            console.log(this.selected)
-        }
     }
 }
 </script>
+
+<style scoped>
+    .text {
+        max-width: 750px;
+        width: 90%;
+    }
+    .text p{
+        max-width: 60ch
+    }
+</style>
