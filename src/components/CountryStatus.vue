@@ -1,5 +1,6 @@
 <template>
     <div class="pt-5 mt-5">
+        {{ setData() }}
         <div>
             <label class="mx-5 px-5 fw-bold fs-5 mt-3">Select a date:</label>
             <DatePickerLite 
@@ -33,18 +34,20 @@
             </ul>
        </div>
        <div v-if="cured">
-           <h2 class="pt-4 ps-5">Recovered in </h2>
+           <h2 class="pt-4 ps-5">Recovered in {{selected && selected.Country}} </h2>
        </div>
        <div v-if="infected">
-           <h2 class="pt-4 ps-5">Cases in </h2>
+           <h2 class="pt-4 ps-5">Cases in {{selected && selected.Country}} </h2>
        </div>
        <div v-if="dead">
-          <h2 class="pt-4 ps-5"> How many died in</h2>
+          <h2 class="pt-4 ps-5"> How many died in {{selected && selected.Country}}</h2>
        </div>
     </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 import DatePickerLite from 'vue3-datepicker-lite';
 
 export default {
@@ -57,6 +60,7 @@ export default {
             cured: true,
             infected: false,
             dead: false,
+            selectedDate: '',
             datepickerSetting: {
                 id: "birthday",
                 name: "birthday",
@@ -65,20 +69,25 @@ export default {
                 placeholder: "Select",
                 isButtonType: false,
                 yearMinus: 0,
-                fromDate: "10-02-2020",
+                fromDate: "2020-02-10T00:00:00",
                 toDate: this.getDate(),
                 locale: {
-                    format: "DD-MM-YYYY",
+                    format: "YYYY-MM-DDTHH:mm:ssZ",
                     weekday: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-                    months: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+                    months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
                     startsWeeks: 0,
                 },
                 changeEvent: (value) => {
-                    console.log(value + " selected!");
+                    this.selectedDate = value;
+                    this.setData()   
                 },
                 disableInput: false,
-            }
+            },
+            selected: {}
         }
+    },
+    computed:{
+        ...mapGetters(['getCountryStatus']),
     },
     methods: {
         onClick(e) {
@@ -96,10 +105,17 @@ export default {
             const mm = String(today.getMonth()+1).padStart(2, '0');
             const yyyy = today.getFullYear()
 
-            return `${dd}-${mm}-${yyyy}`
+            return `${yyyy}-${mm}-${dd}T00:00:00Z`
         },
-        onSelect() {
-            console.log("selected")
+        setData(){
+            setTimeout(() => {
+                this.getCountryStatus.forEach(country => {
+                    if(country.Date === this.selectedDate) return this.selected = country
+                })
+            }, 50)
+        },
+        getData() {
+            console.log(this.selected)
         }
     }
 }

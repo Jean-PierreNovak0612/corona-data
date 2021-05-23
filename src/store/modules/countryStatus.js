@@ -1,7 +1,7 @@
 import api from '../../api/coronaData'
 
 const state = {
-    countryStatus: {}
+    countryStatus: JSON.parse(window.localStorage.getItem('Status'))
 }
 
 const getters = {
@@ -12,6 +12,7 @@ const actions = {
     async fetchCountryStatus({ commit }, country) {
         const response = await api.fetchCountryStatus(country)
         commit('setCountryStatus', response.data)
+        window.localStorage.setItem('Status', JSON.stringify(response.data))
     }
 }
 

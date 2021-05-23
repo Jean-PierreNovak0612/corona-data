@@ -1,14 +1,14 @@
 <template>
     <header>
         <nav class="navbar navbar-light fixed-top border border-3 border-right-0 border-left-0 border-top-0 navbar-expand-lg justify-content-between">
-            <router-link @click="checkLink" class="navbar-brand p-3 fw-bold fs-3" to="/">Corona Status</router-link>
+            <router-link class="navbar-brand p-3 fw-bold fs-3" to="/">Corona Status</router-link>
             <button class="navbar-toggler m-3" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse p-3 justify-content-between" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <router-link @click="checkLink" class="nav-item nav-link fw-bold fs-5" to="/">Home</router-link>
-                    <router-link @click="checkLink" class="nav-item nav-link fw-bold fs-5" to="/status">Status</router-link>
+                    <router-link class="nav-item nav-link fw-bold fs-5" to="/">Home</router-link>
+                    <router-link class="nav-item nav-link fw-bold fs-5" to="/status">Status</router-link>
                 </div>
                 <form class="form-inline form-group my-2 my-lg-0 d-lg-flex">
                     <input type="search" id="search" class="form-control me-sm-2" placeholder="Enter country name">
@@ -22,11 +22,6 @@
 <script>
 export default {
     name: 'Header',
-    methods: {
-        checkLink() {
-            this.$emit('checkLink', null)
-        }
-    }
 }
 </script>
 
