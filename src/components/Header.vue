@@ -10,10 +10,6 @@
                     <router-link class="nav-item nav-link fw-bold fs-5" to="/">Home</router-link>
                     <router-link class="nav-item nav-link fw-bold fs-5" to="/status">Status</router-link>
                 </div>
-                <form class="form-inline form-group my-2 my-lg-0 d-lg-flex">
-                    <input type="search" id="search" class="form-control me-sm-2" placeholder="Enter country name">
-                    <button class="btn btn-outline-dark my-3 my-lg-0">Submit</button>
-                </form>
             </div>
         </nav>
     </header>
